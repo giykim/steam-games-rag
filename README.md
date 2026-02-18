@@ -1,6 +1,6 @@
 # Steam Games RAG (Retrieval Augmentated Generation)
 
-## Virtual Environment
+## Setup (Virtual Environment)
 
 Create virtual environment:
 ```
