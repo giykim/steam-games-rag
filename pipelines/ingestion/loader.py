@@ -1,6 +1,7 @@
-from config import KAGGLE_DATASET
-
 import kagglehub
+
+from config import RAW_DATA_PATH
+from pipelines.ingestion.constants import KAGGLE_DATASET
 
 
 class DataLoader:
@@ -8,5 +9,6 @@ class DataLoader:
         pass
 
     def download_kaggle_dataset(self):
-        path = kagglehub.dataset_download(KAGGLE_DATASET)
+        path = kagglehub.dataset_download(handle=KAGGLE_DATASET, output_dir=RAW_DATA_PATH)
+
         return path

@@ -1,4 +1,4 @@
-from ingest_service import IngestService
+from pipelines.ingestion.ingest_service import IngestService
 
 
 if __name__ == "__main__":

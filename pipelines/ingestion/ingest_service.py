@@ -1,4 +1,4 @@
-from loader import DataLoader
+from pipelines.ingestion.loader import DataLoader
 
 
 class IngestService:
@@ -8,4 +8,4 @@ class IngestService:
     def run(self):
         path = self.data_loader.download_kaggle_dataset()
 
-        print(path)
+        print(f"Downloaded kaggle dataset at {path}.")
