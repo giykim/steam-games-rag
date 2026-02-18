@@ -18,8 +18,10 @@ class DataIngester:
         return raw_dataset
 
     def _download_kaggle_dataset(self):
-        path = kagglehub.dataset_download(handle=KAGGLE_DATASET, output_dir=RAW_DATA_PATH)
+        try:
+            path = kagglehub.dataset_download(handle=KAGGLE_DATASET, output_dir=RAW_DATA_PATH)
+            print(f"Downloaded kaggle dataset to {path}.")
 
-        print(f"Downloaded kaggle dataset at {path}.")
-
-        return path
+            return path
+        except Exception as e:
+            raise RuntimeError(f"Failed to download Kaggle dataset '{KAGGLE_DATASET}': {e}") from e
