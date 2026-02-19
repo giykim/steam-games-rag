@@ -1,13 +1,13 @@
-from pipelines.etl.embedding import DocumentEmbedder
+from pipelines.etl.embedding.openai_embedder import BaseEmbedder
 from pipelines.etl.ingest import DataIngester
 from pipelines.etl.preprocess import DataPreprocesser
 
 
 class ETLService:
-    def __init__(self):
+    def __init__(self, embedder: BaseEmbedder):
         self.ingester = DataIngester()
         self.preprocesser = DataPreprocesser()
-        self.embedder = DocumentEmbedder()
+        self.embedder = embedder
 
     def run(self):
         raw_df = self.ingester.get_kaggle_dataset()
