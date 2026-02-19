@@ -10,7 +10,7 @@ class DataIngester:
     def __init__(self):
         pass
 
-    def load_kaggle_dataset(self) -> pd.DataFrame:
+    def get_kaggle_dataset(self) -> pd.DataFrame:
         path = self._download_kaggle_dataset()
 
         raw_dataset = pd.read_csv(path / CSV_FILE)
