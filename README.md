@@ -23,6 +23,13 @@ pip install -r requirements.txt
 
 ## Data Ingestion Pipeline
 
+Make sure docker is open.
+
+Start docker container:
+```
+docker compose up -d
+```
+
 Run data ingestion pipeline:
 ```
 python -m pipelines.ingestion.run
