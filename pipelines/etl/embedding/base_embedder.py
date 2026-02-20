@@ -32,13 +32,20 @@ class BaseEmbedder(ABC):
 
             print(f"Embedded {min(i + batch_size, len(documents))}/{len(documents)} documents.")
 
+        self._save_embeddings(results)
+
         return results
+    
+    def _create_processed_data_dir(self) -> None:
+        PROCESSED_DATA_PATH.mkdir(parents=True, exist_ok=True)
     
     def _load_embeddings(self) -> list[dict]:
         with open(self.EMBEDDINGS_PATH, "r") as f:
             return json.load(f)
     
     def _save_embeddings(self, documents: list[dict]) -> None:
+        self._create_processed_data_dir()
+
         with open(self.EMBEDDINGS_PATH, "w") as f:
             json.dump(documents, f)
 

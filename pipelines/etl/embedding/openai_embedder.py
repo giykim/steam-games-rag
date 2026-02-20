@@ -7,8 +7,8 @@ from pipelines.etl.embedding.base_embedder import BaseEmbedder
 
 
 class OpenAIEmbedder(BaseEmbedder):
+    BATCH_SIZE = 500
     EMBEDDING_MODEL = "text-embedding-3-small"
-    BATCH_SIZE = 100
 
     def __init__(self):
         self.client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])

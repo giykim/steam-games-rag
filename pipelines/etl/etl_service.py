@@ -19,3 +19,4 @@ class ETLService:
         print(f"Created documents.")
 
         embeddings_documents = self.embedder.get_embeddings_documents(documents)
+        print(f"Retrieved embeddings.")
