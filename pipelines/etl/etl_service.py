@@ -34,3 +34,5 @@ class ETLService:
         self.db.save_embeddings(embedded_description, SENTENCE_TRANSFORMER_DESCRIPTION_TABLE)
         self.db.save_embeddings(embedded_stats, SENTENCE_TRANSFORMER_STATS_TABLE)
         logging.info("Saved embeddings to database.")
+
+        logging.info("Finished running ETL service.")

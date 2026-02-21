@@ -42,5 +42,5 @@ class DataPreprocesser:
         return "\n".join(
             f"{col.replace('_', ' ').title()}: {row[col]}"
             for col in row.index
-            if not col == "name"
+            if not col in (self.APP_ID_COLUMN, self.NAME_COLUMN)
         )
