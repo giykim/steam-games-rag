@@ -28,8 +28,8 @@ class ChatService:
         query = messages[-1].content
 
         embedding = self._embed_query(query)
-        description_results = self.retriever.retrieve(embedding, "description_embeddings_st")
-        stats_results = self.retriever.retrieve(embedding, "stats_embeddings_st")
+        description_results = self.retriever.retrieve(embedding, "description_embeddings_st", 5)
+        stats_results = self.retriever.retrieve(embedding, "stats_embeddings_st", 5)
 
         context = self._build_context(description_results, stats_results)
         response = self._generate_response(messages, context)
