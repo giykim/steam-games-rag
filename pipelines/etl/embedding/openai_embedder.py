@@ -2,7 +2,6 @@ import os
 
 from openai import OpenAI
 
-from pipelines.etl.constants import EMBEDDINGS_FILE
 from pipelines.etl.embedding.base_embedder import BaseEmbedder
 
 
@@ -15,8 +14,8 @@ class OpenAIEmbedder(BaseEmbedder):
 
         super().__init__()
         
-    def _get_embeddings_file(self):
-        return f"openAI_{EMBEDDINGS_FILE}"
+    def _get_embeddings_file(self, embedding_type: str) -> str:
+        return f"openAI_{embedding_type}_embeddings.json"
     
     def _get_batch_size(self):
         return self.BATCH_SIZE

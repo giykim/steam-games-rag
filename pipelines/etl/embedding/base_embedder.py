@@ -5,18 +5,16 @@ from config import PROCESSED_DATA_PATH
 
 
 class BaseEmbedder(ABC):
-    def __init__(self):
-        self.EMBEDDINGS_PATH = PROCESSED_DATA_PATH / self._get_embeddings_file()
-
-    def get_embeddings_documents(self, documents: list[dict]) -> list[dict]:
-        if self.EMBEDDINGS_PATH.exists():
-            embeddings_documents = self._load_embeddings()
+    def get_embeddings_documents(self, documents: list[dict], embedding_type: str) -> list[dict]:
+        path = PROCESSED_DATA_PATH / self._get_embeddings_file(embedding_type)
+        if path.exists():
+            embeddings_documents = self._load_embeddings(path)
         else:
-            embeddings_documents = self._embed_documents(documents)
-        
+            embeddings_documents = self._embed_documents(documents, path)
+
         return embeddings_documents
-    
-    def _embed_documents(self, documents: list[dict]) -> list[dict]:
+
+    def _embed_documents(self, documents: list[dict], path) -> list[dict]:
         results = []
 
         batch_size = self._get_batch_size()
@@ -32,25 +30,22 @@ class BaseEmbedder(ABC):
 
             print(f"Embedded {min(i + batch_size, len(documents))}/{len(documents)} documents.")
 
-        self._save_embeddings(results)
+        self._save_embeddings(results, path)
 
         return results
-    
-    def _create_processed_data_dir(self) -> None:
-        PROCESSED_DATA_PATH.mkdir(parents=True, exist_ok=True)
-    
-    def _load_embeddings(self) -> list[dict]:
-        with open(self.EMBEDDINGS_PATH, "r") as f:
-            return json.load(f)
-    
-    def _save_embeddings(self, documents: list[dict]) -> None:
-        self._create_processed_data_dir()
 
-        with open(self.EMBEDDINGS_PATH, "w") as f:
+    def _load_embeddings(self, path) -> list[dict]:
+        with open(path, "r") as f:
+            return json.load(f)
+
+    def _save_embeddings(self, documents: list[dict], path) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(path, "w") as f:
             json.dump(documents, f)
 
     @abstractmethod
-    def _get_embeddings_file(self) -> str:
+    def _get_embeddings_file(self, embedding_type: str) -> str:
         pass
 
     @abstractmethod

@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer
 
-from pipelines.etl.constants import EMBEDDINGS_FILE
 from pipelines.etl.embedding.base_embedder import BaseEmbedder
 
 
@@ -13,8 +12,8 @@ class SentenceTransformerEmbedder(BaseEmbedder):
 
         super().__init__()
 
-    def _get_embeddings_file(self):
-        return f"sentenceTransformer_{EMBEDDINGS_FILE}"
+    def _get_embeddings_file(self, embedding_type: str) -> str:
+        return f"sentenceTransformer_{embedding_type}_embeddings.json"
     
     def _get_batch_size(self):
         return self.BATCH_SIZE

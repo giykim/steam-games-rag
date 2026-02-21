@@ -8,23 +8,22 @@ class DataPreprocesser:
     def __init__(self):
         pass
 
-    def build_documents(self, df: pd.DataFrame, columns_groups: list[list[str]]) -> list[dict]:
+    def build_documents(self, df: pd.DataFrame, columns: list[str]) -> list[dict]:
         documents = []
 
-        for columns in columns_groups:
-            if self.APP_ID_COLUMN not in columns or self.NAME_COLUMN not in columns:
-                print(f"Columns {self.APP_ID_COLUMN} and {self.NAME_COLUMN} are required columns. Skipping creating documents for {columns}.")
-                continue
+        if self.APP_ID_COLUMN not in columns or self.NAME_COLUMN not in columns:
+            print(f"Columns {self.APP_ID_COLUMN} and {self.NAME_COLUMN} are required columns. Skipping creating documents for {columns}.")
+            return
 
-            group_df = self._select_columns(df, columns)
-            group_df = self._remove_na(group_df)
+        df = self._select_columns(df, columns)
+        df = self._remove_na(df)
 
-            for _, row in group_df.iterrows():
-                documents.append({
-                    "app_id": row[self.APP_ID_COLUMN],
-                    "name": row[self.NAME_COLUMN],
-                    "content": self._build_content(row),
-                })
+        for _, row in df.iterrows():
+            documents.append({
+                "app_id": row[self.APP_ID_COLUMN],
+                "name": row[self.NAME_COLUMN],
+                "content": self._build_content(row),
+            })
 
         return documents
 
