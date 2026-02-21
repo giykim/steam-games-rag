@@ -2,6 +2,7 @@ import pandas as pd
 
 
 class DataPreprocesser:
+    APP_ID_COLUMN = "appid"
     NAME_COLUMN = "name"
 
     def __init__(self):
@@ -11,8 +12,8 @@ class DataPreprocesser:
         documents = []
 
         for columns in columns_groups:
-            if self.NAME_COLUMN not in columns:
-                print(f"Columns {self.NAME_COLUMN} is a required column. Skipping creating documents for {columns}.")
+            if self.APP_ID_COLUMN not in columns or self.NAME_COLUMN not in columns:
+                print(f"Columns {self.APP_ID_COLUMN} and {self.NAME_COLUMN} are required columns. Skipping creating documents for {columns}.")
                 continue
 
             group_df = self._select_columns(df, columns)
@@ -20,7 +21,8 @@ class DataPreprocesser:
 
             for _, row in group_df.iterrows():
                 documents.append({
-                    "name": row["name"],
+                    "app_id": row[self.APP_ID_COLUMN],
+                    "name": row[self.NAME_COLUMN],
                     "content": self._build_content(row),
                 })
 
