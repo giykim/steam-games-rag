@@ -1,6 +1,12 @@
+import logging
 import os
 from pathlib import Path
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(filename)s - %(message)s"
+)
 
 # Project root path
 PROJECT_ROOT_PATH = Path(__file__).resolve().parent

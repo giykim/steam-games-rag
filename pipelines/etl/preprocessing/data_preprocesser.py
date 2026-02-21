@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 
 
@@ -12,7 +13,7 @@ class DataPreprocesser:
         documents = []
 
         if self.APP_ID_COLUMN not in columns or self.NAME_COLUMN not in columns:
-            print(f"Columns {self.APP_ID_COLUMN} and {self.NAME_COLUMN} are required columns. Skipping creating documents for {columns}.")
+            logging.warning(f"Columns {self.APP_ID_COLUMN} and {self.NAME_COLUMN} are required columns. Skipping creating documents for {columns}.")
             return
 
         df = self._select_columns(df, columns)

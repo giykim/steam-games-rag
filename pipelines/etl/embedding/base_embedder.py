@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import json
+import logging
 
 from config import PROCESSED_DATA_PATH
 
@@ -28,7 +29,7 @@ class BaseEmbedder(ABC):
             for doc, embedding in zip(batch, embeddings):
                 results.append({**doc, "embedding": embedding})
 
-            print(f"Embedded {min(i + batch_size, len(documents))}/{len(documents)} documents.")
+            logging.info(f"Embedded {min(i + batch_size, len(documents))}/{len(documents)} documents.")
 
         self._save_embeddings(results, path)
 

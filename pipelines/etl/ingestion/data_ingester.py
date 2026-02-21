@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 
 import kagglehub
@@ -20,7 +21,7 @@ class DataIngester:
     def _download_kaggle_dataset(self) -> str:
         try:
             path = kagglehub.dataset_download(handle=KAGGLE_DATASET, output_dir=RAW_DATA_PATH)
-            print(f"Downloaded kaggle dataset to {path}.")
+            logging.info(f"Downloaded kaggle dataset to {path}.")
 
             return path
         except Exception as e:
