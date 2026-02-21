@@ -40,7 +40,7 @@ class DataPreprocesser:
     
     def _build_content(self, row: pd.Series) -> str:
         return "\n".join(
-            f"{col.replace('_', '').title()}: {row[col]}"
+            f"{col.replace('_', ' ').title()}: {row[col]}"
             for col in row.index
             if not col == "name"
         )
