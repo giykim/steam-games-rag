@@ -1,3 +1,4 @@
+from pipelines.etl.db.database_service import DatabaseService
 from pipelines.etl.embedding.openai_embedder import BaseEmbedder
 from pipelines.etl.ingestion.data_ingester import DataIngester
 from pipelines.etl.preprocessing.data_preprocesser import DataPreprocesser
@@ -5,9 +6,11 @@ from pipelines.etl.preprocessing.data_preprocesser import DataPreprocesser
 
 class ETLService:
     def __init__(self, embedder: BaseEmbedder):
+        self.embedder = embedder
+
+        self.db = DatabaseService()
         self.ingester = DataIngester()
         self.preprocesser = DataPreprocesser()
-        self.embedder = embedder
 
     def run(self):
         raw_df = self.ingester.get_kaggle_dataset()
@@ -20,3 +23,6 @@ class ETLService:
 
         embeddings_documents = self.embedder.get_embeddings_documents(documents)
         print(f"Retrieved embeddings.")
+
+        self.db.save_embeddings(embeddings_documents)
+        print("Saved embeddings to database.")

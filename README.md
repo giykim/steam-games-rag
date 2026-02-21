@@ -1,5 +1,7 @@
 # Steam Games RAG (Retrieval Augmentated Generation)
 
+(These commands are tailored for `git bash`)
+
 ## Setup (Virtual Environment)
 
 Create virtual environment:
@@ -28,6 +30,11 @@ Make sure docker is open.
 Start docker container:
 ```
 docker compose up -d
+```
+
+Initialize database schema in docker container:
+```
+docker exec -i steam-games-rag-db-1 psql -U postgres -d steam_games < db/schema.sql
 ```
 
 Run data ingestion pipeline:
