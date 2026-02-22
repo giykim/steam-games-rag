@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers.chat_router import ChatRouter
@@ -11,9 +13,13 @@ class App:
         self._register_health()
 
     def _register_cors(self):
+        origins = ["http://localhost:3000"]
+        frontend_url = os.getenv("FRONTEND_URL")
+        if frontend_url:
+            origins.append(frontend_url)
         self.app.add_middleware(
             CORSMiddleware,
-            allow_origins=["http://localhost:3000"],
+            allow_origins=origins,
             allow_methods=["*"],
             allow_headers=["*"],
         )
