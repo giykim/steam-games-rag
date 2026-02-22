@@ -2,6 +2,8 @@
 
 (These commands are tailored for `git bash`)
 
+## Steps to set up local development:
+
 ## Setup (Virtual Environment)
 
 Create virtual environment:
