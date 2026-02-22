@@ -34,6 +34,6 @@ class DatabaseService:
                             """,
                             params[i : i + self.BATCH_SIZE],
                         )
-                conn.commit()
+                raw_conn.commit()
         except OperationalError as e:
             raise ConnectionError(f"Failed to connect to the database: {e}") from e

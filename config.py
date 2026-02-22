@@ -21,5 +21,6 @@ RAW_DATA_PATH = PROJECT_ROOT_PATH / "data" / "raw"
 # Database url
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/steam_games")
 
-# OpenAI Key
+# API Keys
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
