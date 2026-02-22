@@ -1,6 +1,6 @@
 import logging
 
-from config import SENTENCE_TRANSFORMER_DESCRIPTION_TABLE, SENTENCE_TRANSFORMER_STATS_TABLE
+from config import OPEN_AI_DESCRIPTION_TABLE, OPEN_AI_STATS_TABLE
 from pipelines.etl.db.database_service import DatabaseService
 from pipelines.etl.embedding.openai_embedder import BaseEmbedder
 from pipelines.etl.ingestion.data_ingester import DataIngester
@@ -31,8 +31,8 @@ class ETLService:
         embedded_stats = self.embedder.get_embeddings_documents(stats_documents, "stats")
         logging.info("Retrieved embeddings.")
 
-        self.db.save_embeddings(embedded_description, SENTENCE_TRANSFORMER_DESCRIPTION_TABLE)
-        self.db.save_embeddings(embedded_stats, SENTENCE_TRANSFORMER_STATS_TABLE)
+        self.db.save_embeddings(embedded_description, OPEN_AI_DESCRIPTION_TABLE)
+        self.db.save_embeddings(embedded_stats, OPEN_AI_STATS_TABLE)
         logging.info("Saved embeddings to database.")
 
         logging.info("Finished running ETL service.")
