@@ -42,6 +42,24 @@ Run data ingestion pipeline:
 python -m pipelines.ingestion.run
 ```
 
+### Stand up API endpoints
+
+```
+python -m uvicorn api.main:app --reload
+```
+
+Go to http://127.0.0.1:8000/docs to test API.
+
+### Test frontend
+
+```
+cd frontend
+```
+
+```
+npm run dev
+```
+
 ## Related Links
 
 [Kaggle Dataset](https://www.kaggle.com/datasets/artermiloff/steam-games-dataset)

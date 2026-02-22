@@ -1,12 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api.routers.chat_router import ChatRouter
 
 
 class App:
     def __init__(self):
         self.app = FastAPI(title="Steam Game Recommender")
+        self._register_cors()
         self._register_routers()
         self._register_health()
+
+    def _register_cors(self):
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["http://localhost:3000"],
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     def _register_routers(self):
         chat_router = ChatRouter()
