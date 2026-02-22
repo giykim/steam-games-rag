@@ -26,7 +26,7 @@ export default function ChatPage() {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/health`);
         setBackendOnline(res.ok);
       } catch {
         setBackendOnline(false);
