@@ -12,4 +12,4 @@ class ChatRouter:
         self.service = AnthropicChatService()
 
     def chat(self, request: ChatRequest) -> ChatResponse:
-        return self.service.chat(request.messages)
+        return self.service.chat(request.session_id, request.message)

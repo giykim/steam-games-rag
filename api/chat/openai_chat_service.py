@@ -7,27 +7,22 @@ from api.models.message import Message
 from config import OPENAI_API_KEY
 
 
-SYSTEM_PROMPT = """You are a Steam game recommendation assistant.
-Your goal is to recommend games based on the user's preferences.
-Start by asking what kind of game they are looking for.
-Follow up with questions about price range, genre, multiplayer preference, and playtime.
-When recommending games, explain why each game matches their preferences.
-Base your recommendations only on the context provided to you.
-If you don't have enough information to make a recommendation, ask for more details."""
-
-
 class OpenAIChatService(ChatService):
+    CHAT_SERVICE = "gpt-4o-mini"
+
     def __init__(self):
         self.client = OpenAI(api_key=OPENAI_API_KEY)
 
         super().__init__()
 
-    def _generate_response(self, messages: list[Message], context: str) -> str:
-        openai_messages = [{"role": "system", "content": SYSTEM_PROMPT + "\n\nContext:\n" + context}]
-        openai_messages += [{"role": m.role, "content": m.content} for m in messages]
+    def _generate_response(self, messages: list[dict], context: str) -> str:
+        recent_messages = messages[-self.MAX_HISTORY:]
+        
+        openai_messages = [{"role": "system", "content": self.SYSTEM_PROMPT + "\n\nContext:\n" + context}]
+        openai_messages += recent_messages
 
         response = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=self.CHAT_SERVICE,
             messages=openai_messages,
         )
 

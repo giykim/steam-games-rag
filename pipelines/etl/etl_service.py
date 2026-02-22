@@ -1,6 +1,6 @@
 import logging
 
-from pipelines.etl.constants import SENTENCE_TRANSFORMER_DESCRIPTION_TABLE, SENTENCE_TRANSFORMER_STATS_TABLE
+from config import SENTENCE_TRANSFORMER_DESCRIPTION_TABLE, SENTENCE_TRANSFORMER_STATS_TABLE
 from pipelines.etl.db.database_service import DatabaseService
 from pipelines.etl.embedding.openai_embedder import BaseEmbedder
 from pipelines.etl.ingestion.data_ingester import DataIngester

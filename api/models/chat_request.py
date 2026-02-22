@@ -4,4 +4,5 @@ from api.models.message import Message
 
 
 class ChatRequest(BaseModel):
-    messages: list[Message]
+    session_id: str
+    message: Message

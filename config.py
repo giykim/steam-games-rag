@@ -24,3 +24,9 @@ DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localho
 # API Keys
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Database tables
+OPEN_AI_DESCRIPTION_TABLE = "description_embeddings_openai"
+OPEN_AI_STATS_TABLE = "stats_embeddings_openai"
+SENTENCE_TRANSFORMER_DESCRIPTION_TABLE = "description_embeddings_st"
+SENTENCE_TRANSFORMER_STATS_TABLE = "stats_embeddings_st"
