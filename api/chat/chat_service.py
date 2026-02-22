@@ -20,7 +20,7 @@ class ChatService(ABC):
         Only recommend games that appear in the context. Do not make up games."""
 
     def __init__(self):
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        self.embedding_client = OpenAI(api_key=OPENAI_API_KEY)
         self.retriever = RetrievalService()
         self.sessions: dict[str, list[dict]] = defaultdict(list)
 
@@ -39,7 +39,7 @@ class ChatService(ABC):
         return ChatResponse(message=Message(role="assistant", content=response))
 
     def _embed_query(self, query: str) -> list[float]:
-        response = self.client.embeddings.create(input=query, model=self.EMBEDDING_MODEL)
+        response = self.embedding_client.embeddings.create(input=query, model=self.EMBEDDING_MODEL)
         return response.data[0].embedding
 
     def _build_context(self, description_results: list[dict], stats_results: list[dict]) -> str:

@@ -11,9 +11,8 @@ class OpenAIChatService(ChatService):
     CHAT_SERVICE = "gpt-4o-mini"
 
     def __init__(self):
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
-
         super().__init__()
+        self.client = OpenAI(api_key=OPENAI_API_KEY)
 
     def _generate_response(self, messages: list[dict], context: str) -> str:
         recent_messages = messages[-self.MAX_HISTORY:]

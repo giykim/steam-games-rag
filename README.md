@@ -62,6 +62,19 @@ cd frontend
 npm run dev
 ```
 
+### Production Deployment
+
+Deploy backend to Railway (PostgreSQL Database and Backend Router).
+
+Initialize psql database schema:
+```
+psql <public-database-url> < db/schema.sql
+```
+
+Deploy frontend to Vercel.
+
+Set `NEXT_PUBLIC_API_URL` environment variable to Railway public url.
+
 ## Related Links
 
 [Kaggle Dataset](https://www.kaggle.com/datasets/artermiloff/steam-games-dataset)

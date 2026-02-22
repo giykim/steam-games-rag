@@ -11,9 +11,8 @@ class AnthropicChatService(ChatService):
     CHAT_SERVICE = "claude-sonnet-4-6"
 
     def __init__(self):
-        self.client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-
         super().__init__()
+        self.client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
     def _generate_response(self, messages: list[dict], context: str) -> str:
         recent_messages = messages[-self.MAX_HISTORY:]
