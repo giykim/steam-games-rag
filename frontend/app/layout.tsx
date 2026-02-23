@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Share_Tech_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,12 @@ const orbitron = Orbitron({
 export const metadata: Metadata = {
   title: "SteamScout",
   description: "AI-powered Steam game recommender",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

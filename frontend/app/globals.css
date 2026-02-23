@@ -75,6 +75,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 5;
+  padding-top: env(safe-area-inset-top);
 }
 
 .header-inner {
@@ -232,6 +233,7 @@ body {
   position: sticky;
   bottom: 0;
   z-index: 5;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .input-inner {
