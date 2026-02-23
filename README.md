@@ -2,6 +2,51 @@
 
 (These commands are tailored for `git bash`)
 
+## Deployed Infrastructure
+
+```
+                        ┌─────────────────────────────────────────┐
+                        │               Railway                   │
+  ┌─────────┐           │  ┌─────────────────┐  ┌──────────────┐  │
+  │  User   │──HTTPS───►│  │ FastAPI Backend │  │  PostgreSQL  │  │
+  │ Browser │◄──────────│  │ (Python/Uvicorn)│◄►│  + pgvector  │  │
+  └─────────┘           │  └────────┬────────┘  └──────────────┘  │
+       │                │           │                             │
+       │                └───────────┼─────────────────────────────┘
+       │                            │
+       │   ┌────────────────────────┼────────────────────────┐
+       │   │         External APIs  │                        │
+       │   │  ┌─────────────────┐   │   ┌─────────────────┐  │
+       │   │  │   OpenAI API    │◄──┘   │  Anthropic API  │  │
+       │   │  │ (embeddings)    │       │  (Claude Sonnet) │  │
+       │   │  └─────────────────┘       └────────┬────────┘  │
+       │   └────────────────────────────────────┼────────────┘
+       │                                         │
+       ▼                                         │
+  ┌──────────┐                                   │
+  │  Vercel  │◄──────────────────────────────────┘
+  │ (Next.js)│   chat response
+  └──────────┘
+
+
+  ETL Pipeline (run locally, writes to Railway PostgreSQL)
+
+  ┌─────────┐    ┌────────────┐    ┌─────────────────┐    ┌──────────────┐
+  │ Kaggle  │───►│    CSV     │───►│   OpenAI API    │───►│  PostgreSQL  │
+  │ Dataset │    │ (raw data) │    │ (text-embedding │    │  + pgvector  │
+  └─────────┘    └────────────┘    │  -3-small)      │    └──────────────┘
+                                   └─────────────────┘
+```
+
+### Request Flow
+
+1. User sends a message from the **Vercel** frontend
+2. **FastAPI** on Railway embeds the query via **OpenAI** (`text-embedding-3-small`)
+3. Embedded query performs cosine similarity search against **PostgreSQL/pgvector**
+4. Top matching game descriptions and stats are retrieved as context
+5. Context + conversation history is sent to **Claude Sonnet** via **Anthropic API**
+6. Response is streamed back to the user
+
 ## Steps to set up local development:
 
 ## Setup (Virtual Environment)
