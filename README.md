@@ -1,6 +1,6 @@
 # Steam Games RAG (Retrieval Augmentated Generation)
 
-(These commands are tailored for `git bash`)
+### [Deployed Link](https://steam-scout-chat.vercel.app/)
 
 ## Deployed Infrastructure
 
@@ -49,7 +49,9 @@
 
 ## Steps to set up local development:
 
-## Setup (Virtual Environment)
+(These commands are tailored for `git bash`)
+
+### Setup (Virtual Environment)
 
 Create virtual environment:
 ```
@@ -70,7 +72,7 @@ Install project packages into virtual environment:
 pip install -r requirements.txt
 ```
 
-## Data Ingestion Pipeline
+### Data Ingestion Pipeline
 
 Make sure docker is open.
 
@@ -120,6 +122,6 @@ Deploy frontend to Vercel.
 
 Set `NEXT_PUBLIC_API_URL` environment variable to Railway public url.
 
-## Related Links
+### Related Links
 
 [Kaggle Dataset](https://www.kaggle.com/datasets/artermiloff/steam-games-dataset)
