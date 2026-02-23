@@ -3,6 +3,7 @@ import os
 import time
 
 from openai import OpenAI, RateLimitError
+import tiktoken
 
 from pipelines.etl.embedding.base_embedder import BaseEmbedder
 
@@ -10,14 +11,16 @@ from pipelines.etl.embedding.base_embedder import BaseEmbedder
 class OpenAIEmbedder(BaseEmbedder):
     BATCH_SIZE = 50
     EMBEDDING_MODEL = "text-embedding-3-small"
+    INTER_BATCH_DELAY = 0.5
     MAX_TOKENS = 8192
-    MAX_RETRIES = 8
+    MAX_RETRIES = 15
 
     def __init__(self):
         self.client = OpenAI(
             api_key=os.environ["OPENAI_API_KEY"],
             max_retries=self.MAX_RETRIES,
         )
+        self.tokenizer = tiktoken.encoding_for_model(self.EMBEDDING_MODEL)
 
         super().__init__()
 
@@ -37,6 +40,7 @@ class OpenAIEmbedder(BaseEmbedder):
                     input=truncated,
                     model=self.EMBEDDING_MODEL,
                 )
+                time.sleep(self.INTER_BATCH_DELAY)
                 return [item.embedding for item in response.data]
             except RateLimitError:
                 if attempt == self.MAX_RETRIES - 1:
@@ -46,4 +50,8 @@ class OpenAIEmbedder(BaseEmbedder):
                 delay = min(delay * 2, 60.0)
 
     def _truncate(self, text: str) -> str:
-        return text[:self.MAX_TOKENS * 4]
+        tokens = self.tokenizer.encode(text)
+        if len(tokens) > self.MAX_TOKENS:
+            tokens = tokens[:self.MAX_TOKENS]
+            return self.tokenizer.decode(tokens)
+        return text

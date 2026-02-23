@@ -28,11 +28,15 @@ class ETLService:
         logging.info("Created stats documents.")
 
         embedded_description = self.embedder.get_embeddings_documents(description_documents, "description")
-        embedded_stats = self.embedder.get_embeddings_documents(stats_documents, "stats")
-        logging.info("Retrieved embeddings.")
+        logging.info("Retrieved description embeddings.")
 
         self.db.save_embeddings(embedded_description, OPEN_AI_DESCRIPTION_TABLE)
+        logging.info("Saved description embeddings to database.")
+
+        embedded_stats = self.embedder.get_embeddings_documents(stats_documents, "stats")
+        logging.info("Retrieved stats embeddings.")
+
         self.db.save_embeddings(embedded_stats, OPEN_AI_STATS_TABLE)
-        logging.info("Saved embeddings to database.")
+        logging.info("Saved stats embeddings to database.")
 
         logging.info("Finished running ETL service.")

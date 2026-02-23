@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import json
-import logging
+from tqdm import tqdm
 
 from config import PROCESSED_DATA_PATH
 
@@ -19,7 +19,8 @@ class BaseEmbedder(ABC):
         results = []
 
         batch_size = self._get_batch_size()
-        for i in range(0, len(documents), batch_size):
+        batches = range(0, len(documents), batch_size)
+        for i in tqdm(batches, desc="Embedding", unit="batch"):
             batch = documents[i : i + batch_size]
 
             texts = [doc["content"] for doc in batch]
@@ -28,8 +29,6 @@ class BaseEmbedder(ABC):
 
             for doc, embedding in zip(batch, embeddings):
                 results.append({**doc, "embedding": embedding})
-
-            logging.info(f"Embedded {min(i + batch_size, len(documents))}/{len(documents)} documents.")
 
         self._save_embeddings(results, path)
 
