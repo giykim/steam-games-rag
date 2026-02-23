@@ -105,6 +105,24 @@ body {
   font-size: 11px;
   letter-spacing: 0.15em;
   color: rgba(0, 255, 128, 0.6);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .status {
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    gap: 5px;
+  }
 }
 
 .status-dot {
