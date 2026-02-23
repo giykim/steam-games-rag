@@ -33,7 +33,7 @@ body {
 }
 
 .chat-root {
-  height: 100vh;
+  height: 100dvh;
   background: #070b0f;
   display: flex;
   flex-direction: column;
