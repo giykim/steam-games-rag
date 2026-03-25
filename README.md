@@ -1,6 +1,6 @@
 # Steam Games RAG (Retrieval Augmentated Generation)
 
-### [Deployed Link](https://steam-scout-chat.vercel.app/)
+### [Deployed Link](https://steam-scout.giy.kim/)
 
 ## Deployed Infrastructure
 
